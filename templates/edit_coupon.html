@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+<h2>
+✏️ Edit Coupon
+</h2>
+<form method="POST">
+{% csrf_token %}
+<input type="text" name="code" value="{{coupon.code}}" class="form-control">
+<br>
+<input type="number" name="discount_percentage" value="{{coupon.discount}}" class="form-control">
+<br>
+<input type="number" name="minimum_amount" value="{{coupon.minimum_amount}}" class="form-control">
+<br>
+<input type="date" name="expiry_date" value="{{coupon.expiry_date|date:'Y-m-d'}}" class="form-control">
+<br>
+<input  type="checkbox" name="active" {% if coupon.active %} checked {% endif %}>
+Active
+<br><br>
+<button class="btn btn-primary">
+Update Coupon
+</button>
+</form>
+</div>
+{% endblock %}
+</body>
+</html>

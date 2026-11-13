@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+<h2>
+🎟️ Add Coupon
+</h2>
+<form method="POST">
+{% csrf_token %}
+<label>
+Coupon Code
+</label>
+<input type="text" name="code" class="form-control" placeholder="SAVE20" required>
+<br>
+<label>
+Discount Percentage
+</label>
+<input type="number" name="discount" class="form-control" placeholder="20" required>
+<br>
+<label>
+Minimum Cart Amount
+</label>
+<input type="number" name="minimum_amount" class="form-control" placeholder="500" required>
+<br>
+<label>
+Expiry Date
+</label>
+<input type="date" name="expiry_date" class="form-control" required>
+<br>
+<label>
+Active Coupon
+</label>
+<input type="checkbox" name="active">
+<br><br>
+<button  class="btn btn-success">
+Save Coupon
+</button>
+</form>
+</div>
+{% endblock %}
+</body>
+</html>

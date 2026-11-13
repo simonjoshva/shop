@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Online shopping</title>
+    
+    
+</head>
+<body>
+    {% extends 'base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+<div class="alert alert-success">
+    Hello {{user.username}} 👋
+</div>
+{% else %}
+<a href="/login/" class="btn btn-primary">
+Login
+</a>
+<a href="/register/" class="btn btn-success">
+Register
+</a>
+{% endif %}
+<h3 class="mt-4 text-center">
+🏷️ Categories
+</h3>
+
+<div class="d-flex gap-3 justify-content-center">
+{% for category in categories %}
+<span class="badge bg-dark p-3">
+{{category.name}}
+</span>
+
+{% endfor %}
+</div>
+<hr>
+<h2 class="text-center mb-4">
+🛍️ Our Products
+</h2>
+<div class="row">
+{% for product in products %}
+<div class="col-md-4 mb-4">
+<div class="card shadow-sm h-100">
+
+{% if product.image %}
+
+<img src="{{product.image.url}}"class="card-img-top"height="300"style="object-fit:cover;">
+{% else %}
+<div class="text-center p-5">
+No Image
+</div>
+{% endif %}
+<div class="card-body">
+<h4 class="card-title">{{product.name}}</h4>
+<p class="text-muted">Category:{{product.category.name}}</p>
+<h5 class="text-success">₹{{product.price}}</h5>
+<p>
+Stock:
+<span class="badge bg-info">{{product.stock}}</span>
+</p>
+<p>
+{{product.description|truncatewords:15}}
+</p>
+
+<a href="{% url 'product_detail' product.id %}" class="btn btn-primary w-100">
+    View Details
+</a>
+</div>
+</div>
+</div>
+{% endfor %}
+</div>
+{% endblock %}
+</body>
+</html>

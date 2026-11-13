@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>products</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+    {% extends 'base.html' %}
+    
+    {% block content %}
+    
+
+
+<div class="container mt-4">
+<h2 class="text-center mb-4">
+📦 Product Management
+</h2>
+<form class="d-flex mb-4" method="GET" action="{% url 'product_list' %}">
+<input  class="form-control me-2" type="search" name="search" placeholder="Search Product" value="{{request.GET.search}}">
+<button class="btn btn-success">🔍 Search</button>
+</form>
+<div class="card shadow p-4 mb-4">
+
+<h5>
+Filter Products
+</h5>
+<form method="GET">
+<label>
+Category
+</label>
+<select class="form-select mb-3"
+name="category">
+<option value="">
+All Products
+</option>
+{% for category in categories %}
+
+<option value="{{category.id}}">
+{{category.name}}
+</option>
+{% endfor %}
+</select>
+<label>Price Range</label>
+
+<div class="row">
+<div class="col">
+<input class="form-control" type="number" name="min_price" placeholder="Minimum Price">
+</div>
+<div class="col">
+<input class="form-control" type="number" name="max_price" placeholder="Maximum Price">
+</div>
+<div class="col">
+<button class="btn btn-primary">
+Filter
+</button>
+</div>
+</div>
+</form>
+</div>
+<a href="/products/products/add"
+class="btn btn-dark mb-3">
+➕ Add Product
+</a>
+<div class="card shadow">
+<div class="table-responsive">
+<table class="table table-hover align-middle">
+<thead class="table-dark">
+<tr>
+<th>Image</th>
+<th>Name</th>
+<th>Category</th>
+<th>Description</th>
+<th>Price</th>
+<th>Stock</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+{% for product in products %}
+<tr>
+<td>
+{% if product.image %}
+<img src="{{product.image.url}}"
+width="80"
+height="80"
+class="rounded"
+style="object-fit:cover;">
+{% else %}
+No Image
+{% endif %}
+</td>
+<td>
+<strong>
+{{product.name}}
+</strong>
+</td>
+<td>
+<span class="badge bg-info">
+{{product.category.name}}
+</span>
+</td>
+<td>
+{{product.description|truncatewords:8}}
+</td>
+<td>
+₹{{product.price}}
+</td>
+<td>
+<span class="badge bg-success">
+{{product.stock}}
+</span>
+</td>
+<td>
+<a href="/products/products/edit/{{product.id}}" class="btn btn-warning btn-sm">✏️ Edit</a>
+<a href="/products/products/delete/{{product.id}}" class="btn btn-danger btn-sm">🗑️ Delete</a>
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+</div>
+{% endblock %}
+</body>
+</html>

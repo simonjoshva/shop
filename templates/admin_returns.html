@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+<h2 class="text-center">
+🔄 Return Requests
+</h2>
+<table class="table table-bordered mt-4">
+<tr>
+<th>Order ID</th>
+<th>Customer</th>
+<th>Reason</th>
+<th>Refund Status</th>
+<th>Action</th>
+</tr>
+{% for order in orders %}
+<tr>
+<td>
+#{{order.id}}
+</td>
+<td>
+{{order.user.username}}
+</td>
+<td>
+{{order.return_reason}}
+</td>
+<td>
+{{order.refund_status}}
+</td>
+<td>
+<a href="{% url 'approve_return' order.id %}" class="btn btn-success">
+Approve
+</a>
+<a href="{% url 'reject_return' order.id %}" class="btn btn-danger">
+Reject
+</a>
+{% if order.refund_status == "Approved" %}
+<a href="{% url 'complete_refund' order.id %}" class="btn btn-primary">
+Complete Refund
+</a>
+{% endif %}
+</td>
+</tr>
+{% endfor %}
+</table>
+</div>
+{% endblock %}
+</body>
+</html>

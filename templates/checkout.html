@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+    
+    {% block content %}
+<div class="container mt-5">
+<h1 class="text-center mb-4">
+💳 Checkout
+</h1>
+<div class="row">
+<div class="col-md-7">
+<div class="card shadow p-4">
+<h3>
+📍 Delivery Details
+</h3>
+<form method="POST">
+{% csrf_token %}
+<label class="form-label">
+Delivery Address
+</label>
+<textarea  name="address" class="form-control mb-3" rows="5" placeholder="Enter delivery address" required></textarea>
+<label class="form-label">
+Phone Number
+</label>
+<input type="text" name="phone" class="form-control mb-3" placeholder="Enter phone number" maxlength="15" required>
+<h5>
+💳 Payment Method
+</h5>
+<div class="form-check">
+<label>
+    <input type="radio" name="payment_method" value="COD" required>
+    Cash On Delivery
+</label>
+</div>
+<div class="form-check mb-4">
+<label>
+    <input type="radio" name="payment_method" value="UPI" required>
+    UPI
+</label>
+</div>
+<br><br>
+<button type="submit" class="btn btn-success w-100">
+✅ Place Order
+</button>
+</form>
+</div>
+</div>
+<div class="col-md-5">
+<div class="card shadow p-4">
+<h3>
+🛒 Order Summary
+</h3>
+<hr>
+<p>
+Total Amount:
+</p>
+<h2 class="text-success">
+₹{{total}}
+</h2>
+<hr>
+<p>
+🚚 Free Delivery
+</p>
+<p>
+🔒 Secure Payment
+</p>
+<p>
+↩️ Easy Returns
+</p>
+</div>
+</div>
+</div>
+<a href="{% url 'cart' %}" class="btn btn-outline-primary mt-4">
+⬅ Back to Cart
+</a>
+</div>
+{% endblock %}
+</body>
+</html>

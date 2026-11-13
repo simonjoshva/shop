@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY Dashboard</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+    
+    {% block content %}
+<div class="container mt-5">
+<h2 class="text-center mb-4">
+📊 My Dashboard
+</h2>
+<div class="alert alert-primary">
+Welcome 
+<strong>
+{{request.user.username}}
+</strong>
+👋
+</div>
+<div class="row mb-4">
+<div class="col-md-6">
+<div class="card shadow text-center p-4">
+<h4>
+📦 Total Orders
+</h4>
+<h2 class="text-primary">
+{{total_orders}}
+</h2>
+</div>
+</div>
+<div class="col-md-6">
+<div class="card shadow text-center p-4">
+<h4>
+💰 Total Spent
+</h4>
+<h2 class="text-success">
+₹{{total_spent}}
+</h2>
+</div>
+</div>
+</div>
+<h3 class="mb-3">
+📦 Recent Orders
+</h3>
+{% for order in recent_orders %}
+<div class="card shadow mb-3">
+<div class="card-body">
+<h5>
+Order ID:
+#{{order.id}}
+</h5>
+<p>
+Amount:
+<strong>
+₹{{order.total_amount}}
+</strong>
+</p>
+<p>
+Status:
+{% if order.status == "Delivered" %}
+<span class="badge bg-success">
+{{order.status}}
+</span>
+{% elif order.status == "Shipped" %}
+<span class="badge bg-warning">
+{{order.status}}
+</span>
+{% else %}
+<span class="badge bg-secondary">
+{{order.status}}
+</span>
+{% endif %}
+</p>
+<a href="{% url 'order_detail' order.id %}" class="btn btn-primary">
+View Details
+</a>
+</div>
+</div>
+{% empty %}
+<div class="alert alert-warning">
+No recent orders found
+</div>
+{% endfor %}
+</div>
+{% endblock %}
+</body>
+</html>

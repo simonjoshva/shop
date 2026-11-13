@@ -1,0 +1,15 @@
+.timeline {
+    border-left: 4px solid #0d6efd;
+    padding-left: 30px;
+}
+
+.step {
+    margin-bottom: 30px;
+    opacity: 0.4;
+}
+
+.step.active {
+    opacity: 1;
+    color: green;
+    font-weight: bold;
+}

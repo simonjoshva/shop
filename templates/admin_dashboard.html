@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Admin Dashboard</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container mt-5">
+<h2 class="text-center mb-4">
+📊 Admin Dashboard
+</h2>
+<div class="alert alert-primary">
+Welcome Admin 👋
+</div>
+<div class="row">
+<div class="col-md-3 mb-3">
+<div class="card shadow text-center">
+<div class="card-body">
+<h5>
+📦 Products
+</h5>
+<h2 class="text-primary">
+{{ total_products }}
+</h2>
+</div>
+</div>
+</div>
+<div class="col-md-3 mb-3">
+<div class="card shadow text-center">
+<div class="card-body">
+<h5>
+🏷️ Categories
+</h5>
+<h2 class="text-success">
+{{ total_categories }}
+</h2>
+</div>
+</div>
+</div>
+<div class="col-md-3 mb-3">
+<div class="card shadow text-center">
+<div class="card-body">
+<h5>
+🛒 Orders
+</h5>
+<h2 class="text-warning">
+{{ total_orders }}
+</h2>
+</div>
+</div>
+</div>
+<div class="col-md-3 mb-3">
+<div class="card shadow text-center">
+<div class="card-body">
+<h5>
+👥 Users
+</h5>
+<h2 class="text-danger">
+{{ total_users }}
+</h2>
+</div>
+</div>
+</div>
+</div>
+<div class="card shadow mt-4">
+<div class="card-body text-center">
+<h3>
+💰 Total Sales
+</h3>
+<h1 class="text-success">
+₹{{ total_sales }}
+</h1>
+</div>
+</div>
+<div class="row mt-4">
+<div class="col-md-3">
+<div class="card shadow p-3">
+<h5>
+📦 Orders
+</h5>
+<a href="{% url 'admin_orders' %}" class="btn btn-primary">
+Manage Orders
+</a>
+</div>
+</div>
+<div class="col-md-3">
+<div class="card shadow p-3">
+<h5>
+🔄 Returns
+</h5>
+<a href="{% url 'admin_returns' %}" class="btn btn-warning">
+Return Requests
+</a>
+</div>
+</div>
+<div class="col-md-3">
+<div class="card shadow p-3">
+<h5>
+🎟️ Coupons
+</h5>
+<a href="{% url 'coupon_list' %}" class="btn btn-success">
+Manage Coupons
+</a>
+</div>
+</div>
+<div class="col-md-3">
+<div class="card shadow p-3">
+<h5>
+📱 Products
+</h5>
+<a href="{% url 'product_list' %}" class="btn btn-info">
+Manage Products
+</a>
+</div>
+</div>
+</div>
+</div>
+📦 Recent Orders
+</h3>
+<div class="card shadow">
+<div class="card-body">
+{% for order in recent_orders %}
+<div class="border rounded p-3 mb-3">
+<h5>
+Order #{{order.id}}
+</h5>
+<p>
+Amount:
+₹{{order.total_amount}}
+</p>
+<p>
+Status:
+<span class="badge bg-info">
+{{order.status}}
+</span>
+</p>
+<a href="{% url 'order_detail' order.id %}" class="btn btn-primary btn-sm">
+View Details
+</a>
+</div>
+{% empty %}
+<p>
+No Recent Orders
+</p>
+{% endfor %}
+</div>
+</div>
+</div>
+{% endblock %}
+</body>
+</html>

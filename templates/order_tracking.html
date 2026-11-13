@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Tracking </title>
+    
+</head>
+<body>
+   {% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+<h2 class="text-center">
+🚚 Order Tracking
+</h2>
+<h4>
+Order ID: #{{order.id}}
+</h4>
+<div class="progress mt-4">
+<div class="progress-bar bg-success" style="width: {{ current_index|add:7}}0%"></div>
+</div>
+</div>
+<div class="mt-5">
+{% for step in steps %}
+<div class="card p-3 mb-3">
+{% if forloop.counter0 <= current_index %}
+<h5>
+✅ {{step}}
+</h5>
+{% else %}
+<h5>
+⬜ {{step}}
+</h5>
+{% endif %}
+</div>
+{% endfor %}
+</div>
+</div>
+{% endblock %}
+</body>
+</html>

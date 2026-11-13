@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cart</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+    
+    {% block content %}
+<div class="container mt-5">
+<h1 class="text-center mb-4">
+🛒 My Shopping Cart
+</h1>
+<div class="row">
+<div class="col-md-8">
+{% for item in cart_items %}
+<div class="card shadow mb-3">
+<div class="row g-0">
+<div class="col-md-4">
+{% if item.product.image %}
+<img src="{{item.product.image.url}}" class="img-fluid rounded-start" height="200" style="object-fit:cover;">
+{% else %}
+<p class="text-center mt-5">
+No Image
+</p>
+{% endif %}
+</div>
+<div class="col-md-8">
+<div class="card-body">
+<h4>
+{{item.product.name}}
+</h4>
+<p>
+Price:
+<strong>
+₹{{item.product.price}}
+</strong>
+</p>
+<p>
+Quantity:
+<a href="{% url 'decrease_quantity' item.id %}" class="btn btn-danger btn-sm">
+-
+</a>
+<span class="badge bg-dark">
+{{item.quantity}}
+</span>
+<a href="{% url 'increase_quantity' item.id %}" class="btn btn-success btn-sm">
++
+</a>
+</p>
+<h5 class="text-success">
+Total:
+₹{{item.total_price}}
+</h5>
+<a href="{% url 'remove_from_cart' item.id %}" class="btn btn-outline-danger">
+❌ Remove
+</a>
+</div>
+</div>
+</div>
+</div>
+{% empty %}
+<div class="alert alert-warning text-center">
+<h3>
+🛒 Your Cart is Empty
+</h3>
+</div>
+{% endfor %}
+</div>
+<div class="col-md-4">
+<div class="card shadow p-4">
+<h4>
+Coupon
+</h4>
+<form method="POST" action="{% url 'apply_coupon' %}">
+{% csrf_token %}
+<input type="text" name="coupon" class="form-control mb-2" placeholder="Enter Coupon Code">
+<button class="btn btn-primary w-100">
+Apply Coupon
+</button>
+</form>
+<hr>
+<h4>
+Price Summary
+</h4>
+<p>
+Original Price:
+₹{{total}}
+</p>
+<p class="text-danger">
+Discount:
+₹{{request.session.discount}}
+</p>
+<hr>
+<h3 class="text-success">
+Final Amount:
+₹{{request.session.final_amount}}
+</h3>
+<a href="{% url 'checkout' %}" class="btn btn-success w-100 mt-3">
+✅ Place Order
+</a>
+<a href="{% url 'home' %}" class="btn btn-outline-primary w-100 mt-2">
+🛍️ Continue Shopping
+</a>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
+</body>
+</html>

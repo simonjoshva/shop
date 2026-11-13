@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Order Management</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+<h2 class="text-center mb-4">
+📦 Admin Order Management
+</h2>
+{% for order in orders %}
+<div class="card shadow mb-4">
+<div class="card-header bg-dark text-white">
+<h4>
+Order #{{order.id}}
+</h4>
+</div>
+<div class="card-body">
+<p>
+Customer:
+<strong>
+{{order.user.username}}
+</strong>
+</p>
+<p>
+Date:
+{{order.created_at}}
+</p>
+<h5>
+Products:
+</h5>
+{% for item in order.orderitem_set.all %}
+<p>
+{{item.product.name}}
+-
+Quantity:
+{{item.quantity}}
+</p>
+{% endfor %}
+<h5 class="text-success">
+Amount:
+₹{{order.total_amount}}
+</h5>
+<form method="POST"
+action="{% url 'update_order_status' order.id %}">
+{% csrf_token %}
+<label>
+Status:
+</label>
+<select name="status">
+<option value="Pending"
+{% if order.status == "Pending" %}selected{% endif %}>
+Pending
+</option>
+<option value="Processing"
+{% if order.status == "Processing" %}selected{% endif %}>
+Processing
+</option>
+<option value="Shipped"
+{% if order.status == "Shipped" %}selected{% endif %}>
+Shipped
+</option>
+<option value="Delivered"
+{% if order.status == "Delivered" %}selected{% endif %}>
+Delivered
+</option>
+</select>
+<button class="btn btn-primary">
+Update Status
+</button>
+</form>
+</div>
+</div>
+{% empty %}
+<h3>
+No Orders Found
+</h3>
+{% endfor %}
+</div>
+{% endblock %}
+</body>
+</html>

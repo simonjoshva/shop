@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>UPI Payment</title>
+</head>
+<body>
+    <h2>UPI Payment</h2>
+    <h3>Total Amount: ₹{{ total }}</h3>
+    <p>Scan the QR code using your UPI app.</p>
+    <img src="/media/qrcode.jpeg"
+         width="350"
+         alt="UPI QR Code">
+    <p>
+        UPI ID:
+        <strong>yourname@upi</strong>
+    </p>
+    <hr>
+    <h3>After Payment</h3>
+    <p>
+        Enter the UPI transaction/reference number
+        shown in your UPI app.
+    </p>
+    <form method="POST">
+        {% csrf_token %}
+        <label>
+            UPI Reference Number:
+        </label>
+        <br>
+        <input
+            type="text"
+            name="upi_reference"
+            required
+            placeholder="Enter transaction reference number"
+        >
+        <br><br>
+        <button type="submit">
+            Confirm UPI Payment
+        </button>
+    </form>
+</body>
+</html>

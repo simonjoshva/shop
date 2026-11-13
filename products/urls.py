@@ -1,0 +1,53 @@
+from django.urls import path
+from products import views
+
+urlpatterns=[
+    #category Urls
+    path('categories/',views.category_list,name='category_list'),
+    path('add/',views.add_category,name='add_category'),
+    path('edit/<int:id>/',views.edit_category,name='edit_category'),
+    path('delete/<int:id>/',views.delete_category,name='delete_category'),
+
+    #product Urls
+    path('',views.home,name='home'),
+    path('products/',views.product_list,name='product_list'),
+    path('products/add',views.add_product,name='add_product'),
+    path('products/edit/<int:id>/',views.edit_product,name='edit_product'),
+    path('products/delete/<int:id>/',views.delete_product,name='delete_product'),
+    path('products/detail/<int:id>',views.product_detail,name='product_detail'),
+    path('cart/add/<int:id>',views.add_to_cart,name='add_to_cart'),
+    path('cart/',views.cart,name='cart'),
+    path('cart/increase/<int:id>/',views.increase_quantity,name='increase_quantity'),
+    path('cart/decrease/<int:id>/',views.decrease_quantity,name='decrease_quantity'),
+    path('cart/remove/<int:id>/',views.remove_from_cart,name='remove_from_cart'),
+    path('checkout/',views.checkout,name='checkout'),
+    path('orders/',views.order_history,name='order_history'),
+    path('payment-success/',views.payment_success,name='payment_success'),
+    path('profile/',views.profile,name='profile'),
+    path('update-profile/',views.update_profile,name='update_profile'),
+    path('order/<int:id>/',views.order_detail,name='order_detail'),
+    path('review/<int:id>/',views.add_review,name='add_review'),
+    path('wishlist/add/<int:id>/',views.add_wishlist,name='add_wishlist'),
+    path('wishlist/',views.wishlist,name='wishlist'),
+    path('wishlist/remove/<int:id>/',views.remove_wishlist,name='remove_wishlist'),
+    path('wishlist/cart/<int:id>/',views.wishlist_to_cart,name='wishlist_to_cart'),
+    path('apply-coupon/',views.apply_coupon,name='apply_coupon'),
+    path('dashboard/',views.dashboard,name='dashboard'),
+    path('admin-dashboard/',views.admin_dashboard,name='admin_dashboard'),
+    path('admin-orders/',views.admin_orders,name='admin_orders'),
+    path('update-order-status/<int:id>/',views.update_order_status,name='update_order_status'),
+    path('invoice/<int:id>/',views.generate_invoice,name='generate_invoice'),
+    path('order-tracking/<int:id>/',views.order_tracking,name='order_tracking'),
+    path('cancel-order/<int:id>/',views.cancel_order,name='cancel_order'),
+    path('request-return/<int:id>/',views.request_return,name='request_return'),
+    path('admin/returns/',views.admin_returns,name='admin_returns'),
+    path('admin/returns/approve/<int:id>/',views.approve_return,name='approve_return'),
+    path('admin/returns/reject/<int:id>/',views.reject_return,name='reject_return'),
+    path('admin/return/complete/<int:id>/',views.complete_refund,name='complete_refund'),
+    path('admin/coupons/',views.coupon_list,name='coupon_list'),
+    path('admin/coupons/add/',views.add_coupon,name='add_coupon'),
+    path('admin/coupon/edit/<int:id>/',views.edit_coupon,name='edit_coupon'),
+    path('admin/coupons/delete/<int:id>/',views.delete_coupon,name='delete_coupon'),
+    path('cash-on-delivery/',views.cod_payment,name='cod_payment'),
+    path('upi-payment/',views.upi_payment,name='upi_payment')
+]

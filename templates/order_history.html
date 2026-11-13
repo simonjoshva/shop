@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders</title>
+    
+</head>
+<body>
+   {% extends 'base.html' %}
+   
+   {% block content %}
+<div class="container mt-5">
+<h1 class="text-center mb-4">
+📦 My Orders
+</h1>
+<div class="row">
+{% for order in orders %}
+<div class="col-md-8 mx-auto mb-4">
+<div class="card shadow">
+<div class="card-header bg-dark text-white">
+<h4>
+Order #{{order.id}}
+</h4>
+</div>
+<div class="card-body">
+<p>
+📅 Date:
+{{order.created_at}}
+</p>
+<h5 class="text-success">
+Total Amount:
+₹{{order.total_amount}}
+</h5>
+<hr>
+<h5>
+🛍️ Products
+</h5>
+{% for item in order.orderitem_set.all %}
+<div class="border rounded p-3 mb-2">
+<h6>
+{{item.product.name}}
+</h6>
+<p>
+Category:
+{{item.product.category}}
+</p>
+<p>
+Quantity:
+<span class="badge bg-primary">
+{{item.quantity}}
+</span>
+</p>
+</div>
+{% endfor %}
+<p>
+Status:
+{% if order.status == "Delivered" %}
+<span class="badge bg-success">
+{{order.status}}
+</span>
+{% elif order.status == "Shipped" %}
+<span class="badge bg-warning">
+{{order.status}}
+</span>
+{% else %}
+<span class="badge bg-secondary">
+{{order.status}}
+</span>
+{% endif %}
+</p>
+<a href="{% url 'order_detail' order.id %}" class="btn btn-primary">
+View Order Details 
+</a>
+</div>
+</div>
+</div>
+{% empty %}
+<div class="text-center">
+<h3>
+📦 No Orders Found
+</h3>
+<p>
+You have not placed any orders yet.
+</p>
+<a href="{% url 'home' %}" class="btn btn-success">
+Continue Shopping 🛍️
+</a>
+</div>
+{% endfor %}
+</div>
+</div>
+{% endblock %}
+</body>
+</html>

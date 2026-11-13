@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my wishlistt</title>
+</head>
+<body>
+   {% extends 'base.html' %}
+   
+   {% block content %}
+<div class="container mt-5">
+<h2 class="text-center mb-4">
+❤️ My Wishlist
+</h2>
+<div class="row">
+{% for items in wishlist_items %}
+<div class="col-md-4 mb-4">
+<div class="card shadow h-100">
+{% if items.product.image %}
+<img src="{{items.product.image.url}}" class="card-img-top" height="250" style="object-fit:cover;">
+{% endif %}
+<div class="card-body text-center">
+<h4 class="card-title">
+{{items.product.name}}
+</h4>
+<p>
+⭐⭐⭐⭐☆
+</p>
+<h5 class="text-success">
+₹{{items.product.price}}
+</h5>
+<a href="{% url 'product_detail' items.product.id %}" class="btn btn-outline-primary w-100 mb-2">
+View Product
+</a>
+<a href="{% url 'wishlist_to_cart' items.id %}" class="btn btn-success w-100 mb-2">
+🛒 Add to Cart
+</a>
+<a href="{% url 'remove_wishlist' items.id %}" class="btn btn-danger w-100">
+❌ Remove
+</a>
+</div>
+</div>
+</div>
+{% empty %}
+<div class="text-center">
+<h3>
+❤️ Your Wishlist is Empty
+</h3>
+<p>
+Save your favourite products here.
+</p>
+<a href="{% url 'product_list' %}" class="btn btn-primary">
+Continue Shopping 🛍️
+</a>
+</div>
+{% endfor %}
+</div>
+</div>
+{% endblock %}
+</body>
+</html>
